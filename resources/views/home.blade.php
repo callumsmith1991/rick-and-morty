@@ -3,3 +3,5 @@
          {{ $result['name'] }}<br>
     @endforeach
 </x-layout>
+
+{{$pagination}}
