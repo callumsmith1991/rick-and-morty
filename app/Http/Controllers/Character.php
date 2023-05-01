@@ -41,12 +41,14 @@ class Character extends ApiWrapper
 
         $response = $this->get();
 
-        return view('character', $response);
-    }
+        if(!empty($response['episode'])) {
+            foreach($response['episode'] as $episode) {
+                $episodeInformation = (new Episode)->getEpisode($episode);
+                $response['episodes'][$episodeInformation['id']] = $episodeInformation['episode'].' '.$episodeInformation['name']; 
+            }
+        }
 
-    private function setEndpoint(string $input) : Void
-    {
-        $this->endpoint = $input;
+        return view('character', $response);
     }
 
     public function searchCharacters(Request $request) : View
