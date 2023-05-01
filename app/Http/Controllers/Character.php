@@ -18,9 +18,10 @@ class Character extends ApiWrapper
     public function getAllCharacters(Request $request) : View
     {
 
-        if($request->all()['page']) {
-
+        if(isset($request['page'])) {
             $this->setEndpoint('/character?page='.$request->all()['page']);
+        } else {
+            $this->setEndpoint('/character');
         }
 
         $response = $this->get();
@@ -46,6 +47,21 @@ class Character extends ApiWrapper
     private function setEndpoint(string $input) : Void
     {
         $this->endpoint = $input;
+    }
+
+    public function searchCharacters(Request $request) : View
+    {
+
+        $validate = $request->validate([
+            'name' => ['required', 'max:255']
+        ]);
+
+        $this->setEndpoint(('/character?name='.$validate['name'].''));
+
+        $response = $this->get();
+
+        return view('search', $response);
+
     }
 
 }

@@ -16,4 +16,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [Character::class, 'getAllCharacters']);
 Route::get('/character/{id}', [Character::class, 'getCharacter']);
-
+Route::post('/search', [Character::class, 'searchCharacters']);
