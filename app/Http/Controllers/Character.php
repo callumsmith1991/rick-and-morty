@@ -20,8 +20,8 @@ class Character extends ApiWrapper
     {
 
         if(isset($request['page'])) {
-            $this->setEndpoint('/character?page='.$request->all()['page']);
-            $page = $request->all()['page'];
+            $this->setEndpoint('/character?page='.$request['page']);
+            $page = $request['page'];
         } else {
             $this->setEndpoint('/character');
             $page = 1;
@@ -34,7 +34,7 @@ class Character extends ApiWrapper
             $this->cacheResults($response, $page);
         }
 
-        if(isset($response['error'])) {
+        if($this->responseIsError($response) == true) {
             return view('home', $response);
         }
 
@@ -53,7 +53,7 @@ class Character extends ApiWrapper
 
         $response = $this->get();
 
-        if(isset($response['error'])) {
+        if($this->responseIsError($response) == true) {
             return view('character', $response);
         }
 

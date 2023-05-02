@@ -22,4 +22,13 @@ class ApiWrapper extends Controller
     {
         $this->endpoint = $input;
     }
+
+    protected function responseIsError(array $response) : bool
+    {
+        if(isset($response['error'])) {
+            return true;
+        }
+
+        return false;
+    }
 }
