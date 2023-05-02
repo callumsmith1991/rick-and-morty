@@ -13,12 +13,12 @@ class Episode extends ApiWrapper
         $this->endpoint = '/episode';
     }
 
-    public function getAllEpisodes()
+    public function getAllEpisodes() : Array
     {
         return $this->get();
     }
 
-    public function getEpisode(string $url)
+    public function getEpisode(string $url) : Array
     {
         return Http::get($url)->json();
     }
